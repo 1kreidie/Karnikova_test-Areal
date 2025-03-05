@@ -1,17 +1,33 @@
 <script>
+import Records from './components/Records.vue';
   export default {
+    components: { Records },
     data() {
       return {
-        items: [
-          { content: 'ФИО' },
-          { content: 'ФИО' },
-          { content: 'ФИО' },
-          { content: 'ФИО' },
-          { content: 'ФИО' },
-          { content: 'ФИО' },
-          { content: 'ФИО' },
-          { content: 'ФИО' },
-          { content: 'ФИО' },
+        headers: [
+            { content: 'ФИО', value: 'initials' },
+            { content: 'Дата рождения', value: 'dateOfBirth' },
+            { content: 'Серия/номер паспорта', value: 'passport' },
+            { content: 'Контактная информация', value: 'contactInformation' },
+            { content: 'Адрес проживания', value: 'residenceAddress' },
+            { content: 'Отдел', value: 'department' },
+            { content: 'Должность', value: 'jobTitle' },
+            { content: 'Размер зарплаты', value: 'salaryAmount' },
+            { content: 'Дата принятия на работу', value: 'hiringDate' },
+            { content: '', value: 'actions' },
+        ],
+        infoRecords: [
+          {
+            initials: 'Калинина Ирина Викторовна',
+            dateOfBirth: '30.03.1999',
+            passport: '1222 213456',
+            contactInformation: '+7999999',
+            residenceAddress: 'г. Москва, ул. Октябрьская, д. 10, кв. 23',
+            department: 'Закупки',
+            jobTitle: 'Менеджер',
+            salaryAmount: 10000,
+            hiringDate: '12.04.2022'
+          },
         ]
       }
     },
@@ -19,33 +35,35 @@
 </script>
 
 <template>
-  <div>
-    <table class="minimalistBlack">
-<thead>
-<tr>
-<th v-for="item in items" :key="item">{{ item.content }}</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>cell1_1</td>
-<td>cell2_1</td>
-<td>cell3_1</td>
-<td>cell4_1</td>
-<td>cell5_1</td>
-<td>cell6_1</td>
-<td>cell7_1</td>
-<td>cell8_1</td>
-<td>cell9_1</td>
-</tr>
-</tbody>
-</table>
-  </div>
+  <section>
+    <header class="head">
+      <button>Создать сотрудника</button>
+      <input type="text" placeholder="Найти сотрудника">
+    </header>
+    <table class="employeeRecords">
+      <thead>
+        <tr>
+            <th v-for="head in headers" :key="head.value">{{ head.content }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <Records
+          v-for="(info, i) in infoRecords"
+          :key="i"
+          :item="info"
+          :headers="headers"
+        />
+    </tbody>
+  </table>
+  </section>
 </template>
 
 
 
-<style scoped>
+<style>
+.head {
+  display: flex;
+  gap: 20px;
+}
 
 </style>
